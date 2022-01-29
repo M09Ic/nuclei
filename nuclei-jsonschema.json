@@ -316,7 +316,7 @@
       ],
       "type": "string",
       "title": "type of the matcher",
-      "description": "Type of the matcher,enum=status,enum=size,enum=word,enum=regex,enum=binary,enum=dsl"
+      "description": "Type of the matcher"
     },
     "generators.AttackTypeHolder": {
       "enum": [
@@ -342,7 +342,7 @@
       ],
       "type": "string",
       "title": "type of DNS request to make",
-      "description": "Type is the type of DNS request to make,enum=A,enum=NS,enum=DS,enum=CNAME,enum=SOA,enum=PTR,enum=MX,enum=TXT,enum=AAAA"
+      "description": "Type is the type of DNS request to make"
     },
     "dns.Request": {
       "properties": {
@@ -601,7 +601,7 @@
       ],
       "type": "string",
       "title": "action to perform",
-      "description": "Type of actions to perform,enum=navigate,enum=script,enum=click,enum=rightclick,enum=text,enum=screenshot,enum=time,enum=select,enum=files,enum=waitload,enum=getresource,enum=extract,enum=setmethod,enum=addheader,enum=setheader,enum=deleteheader,enum=setbody,enum=waitevent,enum=keyboard,enum=debug,enum=sleep"
+      "description": "Type of actions to perform"
     },
     "http.HTTPMethodTypeHolder": {
       "enum": [
@@ -614,11 +614,12 @@
         "OPTIONS",
         "TRACE",
         "PATCH",
-        "PURGE"
+        "PURGE",
+        "DEBUG"
       ],
       "type": "string",
       "title": "method is the HTTP request method",
-      "description": "Method is the HTTP Request Method,enum=GET,enum=HEAD,enum=POST,enum=PUT,enum=DELETE,enum=CONNECT,enum=OPTIONS,enum=TRACE,enum=PATCH,enum=PURGE"
+      "description": "Method is the HTTP Request Method"
     },
     "http.Request": {
       "properties": {
@@ -741,6 +742,12 @@
           "title": "maximum http response body size",
           "description": "Maximum size of http response body to read in bytes"
         },
+        "signature": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "$ref": "#/definitions/http.SignatureTypeHolder",
+          "title": "signature is the http request signature method",
+          "description": "Signature is the HTTP Request signature Method"
+        },
         "cookie-reuse": {
           "type": "boolean",
           "title": "optional cookie reuse enable",
@@ -790,6 +797,14 @@
       "additionalProperties": false,
       "type": "object"
     },
+    "http.SignatureTypeHolder": {
+      "enum": [
+        "AWS"
+      ],
+      "type": "string",
+      "title": "type of the signature",
+      "description": "Type of the signature"
+    },
     "network.Input": {
       "properties": {
         "data": {
@@ -824,7 +839,7 @@
       ],
       "type": "string",
       "title": "type is the type of input data",
-      "description": "description=Type of input specified in data field,enum=hex,enum=text"
+      "description": "description=Type of input specified in data field"
     },
     "network.Request": {
       "properties": {
@@ -1178,6 +1193,11 @@
           "type": "boolean",
           "title": "stop at first match",
           "description": "Stop at first match for the template"
+        },
+        "signature": {
+          "$ref": "#/definitions/http.SignatureTypeHolder",
+          "title": "signature is the http request signature method",
+          "description": "Signature is the HTTP Request signature Method"
         }
       },
       "additionalProperties": false,
