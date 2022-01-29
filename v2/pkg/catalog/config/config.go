@@ -40,10 +40,13 @@ func getConfigDetails() (string, error) {
 }
 
 // ReadConfiguration reads the nuclei configuration file from disk.
-func ReadConfiguration() (*Config, error) {
-	templatesConfigFile, err := getConfigDetails()
-	if err != nil {
-		return nil, err
+func ReadConfiguration(templatesConfigFile string) (*Config, error) {
+	if templatesConfigFile == "" {
+		var err error
+		templatesConfigFile, err = getConfigDetails()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	file, err := os.Open(templatesConfigFile)

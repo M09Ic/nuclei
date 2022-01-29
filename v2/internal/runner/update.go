@@ -56,8 +56,13 @@ func (r *Runner) updateTemplates() error { // TODO this method does more than ju
 	}
 	configDir := filepath.Join(home, ".config", "nuclei")
 	_ = os.MkdirAll(configDir, 0755)
-
-	if err := r.readInternalConfigurationFile(home, configDir); err != nil {
+	var templatesConfigFile string
+	if r.options.TemplateConfig != "" {
+		templatesConfigFile = r.options.TemplateConfig
+	} else {
+		templatesConfigFile = filepath.Join(configDir, nucleiConfigFilename)
+	}
+	if err := r.readInternalConfigurationFile(templatesConfigFile); err != nil {
 		return errors.Wrap(err, "could not read configuration file")
 	}
 
@@ -192,10 +197,9 @@ func getVersions(runner *Runner) (semver.Version, semver.Version, error) {
 }
 
 // readInternalConfigurationFile reads the internal configuration file for nuclei
-func (r *Runner) readInternalConfigurationFile(home, configDir string) error {
-	templatesConfigFile := filepath.Join(configDir, nucleiConfigFilename)
+func (r *Runner) readInternalConfigurationFile(templatesConfigFile string) error {
 	if _, statErr := os.Stat(templatesConfigFile); !os.IsNotExist(statErr) {
-		configuration, readErr := config.ReadConfiguration()
+		configuration, readErr := config.ReadConfiguration(templatesConfigFile)
 		if readErr != nil {
 			return readErr
 		}

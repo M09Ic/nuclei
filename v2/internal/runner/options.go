@@ -38,7 +38,7 @@ func ParseOptions(options *types.Options) {
 		os.Exit(0)
 	}
 	if options.TemplatesVersion {
-		configuration, err := config.ReadConfiguration()
+		configuration, err := config.ReadConfiguration(options.TemplateConfig)
 		if err != nil {
 			gologger.Fatal().Msgf("Could not read template configuration: %s\n", err)
 		}

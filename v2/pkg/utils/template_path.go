@@ -13,9 +13,9 @@ const (
 
 var configData *config.Config
 
-func init() {
-	configData, _ = config.ReadConfiguration()
-}
+//func init() {
+//	configData, _ = config.ReadConfiguration()
+//}
 
 // TemplatePathURL returns the Path and URL for the provided template
 func TemplatePathURL(fullPath string) (string, string) {
